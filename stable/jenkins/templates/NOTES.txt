@@ -1,5 +1,5 @@
 1. Get your '{{ .Values.Master.AdminUser }}' user password by running:
-  printf $(printf '\%o' `kubectl get secret --namespace {{ .Release.Namespace }} {{ template "fullname" . }} -o jsonpath="{.data.jenkins-admin-password[*]}"`);echo
+  echo $(kubectl get secret --namespace default jenkins-jenkins -o jsonpath="{.data.jenkins-admin-password}") | openssl base64 -d
 
 2. Get the Jenkins URL to visit by running these commands in the same shell:
 {{- if contains "NodePort" .Values.Master.ServiceType }}
